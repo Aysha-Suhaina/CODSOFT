@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body{
+            background:linear-gradient(to bottom ,  rgb(196, 104, 174) 0%,rgb(175, 132, 165) 30%,rgb(212, 228, 116) 100%) no-repeat;
+            background-attachment:fixed;
+        }
+        .calculator{
+            align-items: center;
+            margin:0 auto;
+            padding:10px;
+            border:1px solid black;
+            border-radius:10px;
+            background-color:rgb(60, 141, 110);
+            width:280px;
+            margin-top:12rem;
+        }
+
+        .grid{
+            display:grid;
+            grid-template-rows: repeat(5,1fr);
+            grid-template-columns: repeat(4,1fr);
+            gap:10px;
+            padding:12px;
+        }
+        .screen{
+            grid-column:1/4;
+            background-color:beige;
+            border-radius:5px;
+            display:flex;
+            justify-content:flex-end;
+            font-weight:500;
+            font-size:1.2rem;
+            padding-top:12px;
+            padding-right:5px;
+            padding-left:5px;
+        }
+        button{
+            flex:1;
+            width:3rem;
+            height:3rem;
+            font-weight:500;
+            font-size:1.2rem;
+            border-radius:50%;
+            border:none;
+            cursor:pointer;
+            transition:all 0.2s;
+        }
+        button[onclick*="+"],button[onclick*="-"],button[onclick*="*"],button[onclick*="/"]{
+            background-color: rgb(36, 31, 31);
+            color:white;
+            font-size:1.5rem;
+        }
+        button[onclick="calculate()"]{
+            background-color: rgb(177, 52, 52);
+            color:white;
+        }
+        button[onclick="clearDisplay()"]{
+            background-color: rgb(177, 52, 52);
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="grid">
+        <div class="screen" id="screen">0</div>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="appendTo('7')">7</button>
+        <button onclick="appendTo('8')">8</button>
+        <button onclick="appendTo('9')">9</button>
+        <button onclick="appendTo('+')">+</button>
+        <button onclick="appendTo('4')">4</button>
+        <button onclick="appendTo('5')">5</button>
+        <button onclick="appendTo('6')">6</button>
+        <button onclick="appendTo('-')">-</button>
+        <button onclick="appendTo('1')">1</button>
+        <button onclick="appendTo('2')">2</button>
+        <button onclick="appendTo('3')">3</button>
+        <button onclick="appendTo('*')">*</button>
+        <button onclick="appendTo('.')">.</button>
+        <button onclick="appendTo('0')">0</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="appendTo('/')">/</button>
+    </div>
+    </div>
+    <script>
+        let currentvalue="0";
+
+        function appendTo(value){
+            if(currentvalue === "0" || currentvalue === "Infinity" || currentvalue === "NaN") {
+                currentvalue=value;
+            }
+            else{
+                currentvalue+=value;
+            }
+            document.getElementById("screen").textContent=currentvalue;
+        }
+        function clearDisplay(){
+            currentvalue="0";
+            // if(display.value==="Infinity" || display.value==="NaN"){
+            //     document.getElementById("screen").textContent = "0";
+            // }
+            
+             document.getElementById("screen").textContent = "0";
+        }
+        function calculate(){
+            try{
+                const result=eval(currentvalue);
+                currentvalue=result.toString();
+                document.getElementById("screen").textContent=currentvalue;
+            }catch(error){
+                alert("Error " + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
